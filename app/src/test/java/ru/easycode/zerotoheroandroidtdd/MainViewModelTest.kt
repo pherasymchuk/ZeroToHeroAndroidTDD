@@ -10,8 +10,6 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
-import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
 
 /**
  * Please also check out the ui test
@@ -51,7 +49,7 @@ class MainViewModelTest {
 
     @Test
     fun test() {
-        repository.expectResponse(SimpleResponse(text = "testingText"))
+        repository.expectResponse(SimpleResponse("testingText"))
 
         viewModel.load()
         liveDataWrapper.checkUpdateCalls(
@@ -63,14 +61,14 @@ class MainViewModelTest {
         repository.checkLoadCalledTimes(1)
 
         val bundleWrapper: BundleWrapper.Mutable = FakeBundleWrapper.Base()
-        val bundleWrapperSaveState: BundleWrapper.SaveState = bundleWrapper
-        val bundleWrapperRestoreState: BundleWrapper.RestoreState = bundleWrapper
+        val bundleWrapperSave: BundleWrapper.Save = bundleWrapper
+        val bundleWrapperRestore: BundleWrapper.Restore = bundleWrapper
 
-        viewModel.saveState(bundleWrapper = bundleWrapperSaveState)
+        viewModel.save(bundleWrapper = bundleWrapperSave)
 
         initialize()
 
-        viewModel.restoreState(bundleWrapper = bundleWrapperRestoreState)
+        viewModel.restore(bundleWrapper = bundleWrapperRestore)
         liveDataWrapper.checkUpdateCalls(listOf(UiState.ShowData(text = "testingText")))
         repository.checkLoadCalledTimes(0)
     }
@@ -82,11 +80,11 @@ private interface FakeBundleWrapper : BundleWrapper.Mutable {
 
         private var uiState: UiState? = null
 
-        override fun saveState(uiState: UiState) {
+        override fun save(uiState: UiState) {
             this.uiState = uiState
         }
 
-        override fun restoreState(): UiState = uiState!!
+        override fun restore(): UiState = uiState!!
     }
 }
 
@@ -102,8 +100,8 @@ private interface FakeLiveDataWrapper : LiveDataWrapper {
             assertEquals(expected, actualCallsList)
         }
 
-        override fun saveState(bundleWrapper: BundleWrapper.SaveState) {
-            bundleWrapper.saveState(actualCallsList.last())
+        override fun save(bundleWrapper: BundleWrapper.Save) {
+            bundleWrapper.save(actualCallsList.last())
         }
 
         override fun update(value: UiState) {

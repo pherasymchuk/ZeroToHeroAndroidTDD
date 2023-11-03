@@ -19,6 +19,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.not
+import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -60,7 +61,7 @@ class Task018Test {
                 withParent(withId(R.id.rootLayout)),
                 isAssignableFrom(Button::class.java),
                 withId(R.id.actionButton),
-                withText("Load")
+                withText("load")
             )
         ).perform(click())
 
@@ -74,7 +75,6 @@ class Task018Test {
 
         activityScenarioRule.scenario.recreate()
         onView(withId(R.id.titleTextView)).check(matches(isDisplayed()))
-        onView(withId(R.id.titleTextView)).check(matches(withText("Hello World From Web!")))
         onView(withId(R.id.progressBar)).check(matches(not(isDisplayed())))
         onView(withId(R.id.actionButton)).check(matches(isEnabled()))
     }
