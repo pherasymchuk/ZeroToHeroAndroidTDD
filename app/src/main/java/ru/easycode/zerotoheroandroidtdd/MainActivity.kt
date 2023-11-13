@@ -1,13 +1,16 @@
 package ru.easycode.zerotoheroandroidtdd
 
+import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.contains
+import kotlinx.parcelize.Parcelize
 
 class MainActivity : AppCompatActivity() {
+    private var state: State = State.Initial
     private lateinit var rootLayout: LinearLayout
     private lateinit var titleTextView: TextView
     private lateinit var removeButton: Button
@@ -21,18 +24,41 @@ class MainActivity : AppCompatActivity() {
         removeButton = findViewById(R.id.removeButton)
 
         removeButton.setOnClickListener {
-            rootLayout.removeView(titleTextView)
+            state = State.Removed
+            state.apply(rootLayout, titleTextView)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val isTextViewRemoved = !rootLayout.contains(titleTextView)
-        outState.putBoolean("key", isTextViewRemoved)
+        outState.putParcelable("key", state)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        if (savedInstanceState.getBoolean("key")) removeButton.performClick()
+        state = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            savedInstanceState.getParcelable("key", State::class.java) ?: State.Initial
+        } else {
+            @Suppress("DEPRECATION")
+            savedInstanceState.getParcelable("key") ?: State.Initial
+        }
+        state.apply(rootLayout, titleTextView)
+    }
+}
+
+interface State : Parcelable {
+
+    fun apply(linearLayout: LinearLayout, textView: TextView) = Unit
+
+    @Parcelize
+    object Initial : State, Parcelable {
+        override fun apply(linearLayout: LinearLayout, textView: TextView) = Unit
+    }
+
+    @Parcelize
+    object Removed : State, Parcelable {
+        override fun apply(linearLayout: LinearLayout, textView: TextView) {
+            linearLayout.removeView(textView)
+        }
     }
 }
