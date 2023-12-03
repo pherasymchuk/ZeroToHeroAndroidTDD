@@ -51,4 +51,11 @@ class CountTest {
             assertEquals("step should be positive, but was -2", e.message)
         }
     }
+
+    @Test(expected = IllegalStateException::class)
+    fun not_number() {
+        val count = Count.Base(2)
+        count.increment("not a number")
+
+    }
 }
