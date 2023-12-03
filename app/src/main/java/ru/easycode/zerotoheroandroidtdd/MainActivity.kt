@@ -14,3 +14,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 }
+
+interface Count {
+    fun increment(number: String): UiState
+
+    class Base(private val step: Int, private val max: Int) : Count {
+        override fun increment(number: String): UiState {
+            TODO()
+        }
+    }
+}
+
+interface UiState {
+
+    class Base(text: String) : UiState
+
+    class Max(text: String) : UiState
+}
