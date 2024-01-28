@@ -9,3 +9,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 }
+
+interface UiState {
+
+    data class Base(private val text: String) : UiState
+    data class Min(private val text: String) : UiState
+    data class Max(private val text: String) : UiState
+}
