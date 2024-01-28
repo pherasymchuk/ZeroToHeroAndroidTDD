@@ -1,6 +1,7 @@
 package ru.easycode.zerotoheroandroidtdd
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
 import org.junit.Test
 
 /**
@@ -64,10 +65,8 @@ class CountTest {
 
     @Test
     fun test_step_negative_message() {
-        try {
+        assertThrows("step should be positive, but was -2", Exception::class.java) {
             Count.Base(step = -2, max = 11, min = 0)
-        } catch (e: Exception) {
-            assertEquals("step should be positive, but was -2", e.message)
         }
     }
 
@@ -83,10 +82,8 @@ class CountTest {
 
     @Test
     fun test_negative_max_message() {
-        try {
+        assertThrows("max should be positive, but was -2", Exception::class.java) {
             Count.Base(step = 5, max = -2, min = 0)
-        } catch (e: Exception) {
-            assertEquals("max should be positive, but was -2", e.message)
         }
     }
 
@@ -97,10 +94,8 @@ class CountTest {
 
     @Test
     fun test_max_less_than_step_message() {
-        try {
+        assertThrows("max should be more than step", Exception::class.java) {
             Count.Base(step = 5, max = 4, min = 0)
-        } catch (e: Exception) {
-            assertEquals("max should be more than step", e.message)
         }
     }
 
@@ -111,10 +106,8 @@ class CountTest {
 
     @Test
     fun test_max_less_than_min_message() {
-        try {
+        assertThrows("max should be more than min", Exception::class.java) {
             Count.Base(step = 5, max = 6, min = 7)
-        } catch (e: Exception) {
-            assertEquals("max should be more than min", e.message)
         }
     }
 }
