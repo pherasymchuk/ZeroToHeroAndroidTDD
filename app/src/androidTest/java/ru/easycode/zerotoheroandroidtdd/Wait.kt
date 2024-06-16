@@ -12,6 +12,18 @@ import java.util.concurrent.TimeoutException
 
 fun waitTillDisplayed(id: Int, timeout: Long) = waitForView(id, isDisplayed(), timeout)
 
+/**
+ * Creates a [ViewAction] which waits for a specific view with the given id to appear on the screen.
+ *
+ * The action will wait for the specified [timeout] in milliseconds, or until the view is found, whichever comes first.
+ *
+ * If the view is not found within the timeout, a [TimeoutException] will be thrown.
+ *
+ * @param id the id of the view to wait for
+ * @param viewMatcher a matcher that the view must match
+ * @param timeout the maximum time to wait for the view in milliseconds
+ * @return a [ViewAction] that waits for the view
+ */
 fun waitForView(id: Int, viewMatcher: Matcher<View>, timeout: Long): ViewAction {
     return object : ViewAction {
         override fun getConstraints(): Matcher<View> {
