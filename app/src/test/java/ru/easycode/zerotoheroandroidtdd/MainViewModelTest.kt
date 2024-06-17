@@ -31,8 +31,8 @@ class MainViewModelTest {
 
     @Test
     fun test() {
-        val repository = FakeRepository.Base()
-        val liveDataWrapper = FakeLiveDataWrapper.Base()
+        val repository = FakeRepository.Default()
+        val liveDataWrapper = FakeLiveDataWrapper.Default()
         val viewModel = MainViewModel(
             liveDataWrapper = liveDataWrapper,
             repository = repository
@@ -47,7 +47,7 @@ private interface FakeLiveDataWrapper : LiveDataWrapper {
 
     fun checkUpdateCalls(expected: List<UiState>)
 
-    class Base : FakeLiveDataWrapper {
+    class Default : FakeLiveDataWrapper {
 
         private val actualCallsList = mutableListOf<UiState>()
 
@@ -69,7 +69,7 @@ private interface FakeRepository : Repository {
 
     fun checkLoadCalledTimes(times: Int)
 
-    class Base : FakeRepository {
+    class Default : FakeRepository {
 
         private var actualCalledTimes: Int = 0
 
