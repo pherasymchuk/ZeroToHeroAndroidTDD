@@ -11,19 +11,27 @@ import java.util.concurrent.atomic.AtomicBoolean
  */
 class SingleLiveEvent<T> : MutableLiveData<T>() {
 
-    private val mPending = AtomicBoolean(false)
+    private val isPending = AtomicBoolean(false)
 
+    /**
+     * Observes the LiveData, only emitting the first value to the observer.
+     *
+     * This method is safe to call from any thread.
+     *
+     * @param owner The LifecycleOwner which controls the observer
+     * @param observer The observer that will receive the emitted value
+     */
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         super.observe(owner) { t ->
-            if (mPending.compareAndSet(true, false))
+            if (isPending.compareAndSet(true, false))
                 observer.onChanged(t)
         }
     }
 
     @MainThread
     override fun setValue(t: T?) {
-        mPending.set(true)
+        isPending.set(true)
         super.setValue(t)
     }
 }

@@ -49,9 +49,9 @@ class MainViewModelTest {
         liveDataWrapper.checkUpdateCalls(listOf(UiState.ShowProgress, UiState.ShowData))
         repository.checkLoadCalledTimes(1)
 
-        val bundleWrapper: BundleWrapper.Mutable = FakeBundleWrapper.Base()
-        val bundleWrapperSave: BundleWrapper.Save = bundleWrapper
-        val bundleWrapperRestore: BundleWrapper.Restore = bundleWrapper
+        val bundleWrapper: BundleWrapper.HandleBundleState<UiState> = FakeBundleWrapper.Base()
+        val bundleWrapperSave: BundleWrapper.Save<UiState> = bundleWrapper
+        val bundleWrapperRestore: BundleWrapper.Restore<UiState> = bundleWrapper
 
         viewModel.save(bundleWrapper = bundleWrapperSave)
 
@@ -63,7 +63,7 @@ class MainViewModelTest {
     }
 }
 
-private interface FakeBundleWrapper : BundleWrapper.Mutable {
+private interface FakeBundleWrapper : BundleWrapper.HandleBundleState<UiState> {
 
     class Base : FakeBundleWrapper {
 
@@ -77,7 +77,7 @@ private interface FakeBundleWrapper : BundleWrapper.Mutable {
     }
 }
 
-private interface FakeLiveDataWrapper : LiveDataWrapper {
+private interface FakeLiveDataWrapper : LiveDataWrapper<UiState> {
 
     fun checkUpdateCalls(expected: List<UiState>)
 
@@ -89,11 +89,11 @@ private interface FakeLiveDataWrapper : LiveDataWrapper {
             assertEquals(expected, actualCallsList)
         }
 
-        override fun save(bundleWrapper: BundleWrapper.Save) {
+        override fun saveState(bundleWrapper: BundleWrapper.Save<UiState>) {
             bundleWrapper.save(actualCallsList.last())
         }
 
-        override fun update(value: UiState) {
+        override fun updateState(value: UiState) {
             actualCallsList.add(value)
         }
 
