@@ -20,7 +20,13 @@ interface LiveDataWrapper<T : Parcelable> : ProvideLiveData<T>, SaveState<T> {
      * @param T The type of data held by the LiveData.
      */
     class Default<T : Parcelable> : LiveDataWrapper<T> {
-        private val liveData: MutableLiveData<T> = MutableLiveData<T>()
+        private val liveData: MutableLiveData<T> = SingleLiveEvent()
+
+        /**
+         * Updates the value of the LiveData to the provided [uiState].
+         *
+         * @param uiState The new value to be set.
+         */
         override fun updateState(uiState: T) {
             liveData.value = uiState
         }

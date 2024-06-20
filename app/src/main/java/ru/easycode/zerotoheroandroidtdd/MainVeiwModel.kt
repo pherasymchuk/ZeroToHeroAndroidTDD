@@ -33,7 +33,7 @@ class MainViewModel(
                 repository.load()
                 liveDataWrapper.updateState(UiState.ShowData)
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             liveDataWrapper.updateState(UiState.Error)
         }
     }
