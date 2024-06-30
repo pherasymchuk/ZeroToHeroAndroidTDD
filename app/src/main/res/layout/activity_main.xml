@@ -1,40 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="horizontal"
-    tools:context=".MainActivity"
-    tools:ignore="HardcodedText">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/decrementButton"
+    <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="4dp"
-        android:text="-" />
+        android:layout_margin="8dp"
+        android:text="Hello world!"
+        android:visibility="invisible"
+        tools:visibility="visible" />
 
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/countTextView"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="4dp"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/incrementButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="4dp"
-        android:text="+" />
-
-
+        android:id="@+id/actionButton"
+        android:text="Load" />
 </LinearLayout>

@@ -10,6 +10,8 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
+import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
 
 /**
  * Please also check out the ui test
@@ -61,14 +63,14 @@ class MainViewModelTest {
         repository.checkLoadCalledTimes(1)
 
         val bundleWrapper: BundleWrapper.Mutable = FakeBundleWrapper.Base()
-        val bundleWrapperSave: BundleWrapper.Save = bundleWrapper
-        val bundleWrapperRestore: BundleWrapper.Restore = bundleWrapper
+        val bundleWrapperSaveState: BundleWrapper.SaveState = bundleWrapper
+        val bundleWrapperRestoreState: BundleWrapper.RestoreState = bundleWrapper
 
-        viewModel.save(bundleWrapper = bundleWrapperSave)
+        viewModel.saveState(bundleWrapper = bundleWrapperSaveState)
 
         initialize()
 
-        viewModel.restore(bundleWrapper = bundleWrapperRestore)
+        viewModel.restoreState(bundleWrapper = bundleWrapperRestoreState)
         liveDataWrapper.checkUpdateCalls(listOf(UiState.ShowData(text = "testingText")))
         repository.checkLoadCalledTimes(0)
     }
@@ -80,11 +82,11 @@ private interface FakeBundleWrapper : BundleWrapper.Mutable {
 
         private var uiState: UiState? = null
 
-        override fun save(uiState: UiState) {
+        override fun saveState(uiState: UiState) {
             this.uiState = uiState
         }
 
-        override fun restore(): UiState = uiState!!
+        override fun restoreState(): UiState = uiState!!
     }
 }
 
@@ -100,8 +102,8 @@ private interface FakeLiveDataWrapper : LiveDataWrapper {
             assertEquals(expected, actualCallsList)
         }
 
-        override fun save(bundleWrapper: BundleWrapper.Save) {
-            bundleWrapper.save(actualCallsList.last())
+        override fun saveState(bundleWrapper: BundleWrapper.SaveState) {
+            bundleWrapper.saveState(actualCallsList.last())
         }
 
         override fun update(value: UiState) {
