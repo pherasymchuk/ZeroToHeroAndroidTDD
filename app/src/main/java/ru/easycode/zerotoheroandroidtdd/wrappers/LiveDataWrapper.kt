@@ -2,7 +2,7 @@ package ru.easycode.zerotoheroandroidtdd.wrappers
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ru.easycode.zerotoheroandroidtdd.UiState
+import ru.easycode.zerotoheroandroidtdd.data.UiState
 
 interface LiveDataWrapper {
     fun liveData(): LiveData<UiState>

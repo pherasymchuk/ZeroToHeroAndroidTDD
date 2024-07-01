@@ -1,4 +1,4 @@
-package ru.easycode.zerotoheroandroidtdd
+package ru.easycode.zerotoheroandroidtdd.network
 
 import com.google.gson.annotations.SerializedName
 import retrofit2.http.GET
