@@ -24,7 +24,7 @@ class MainApplication : Application(), ProvideMainViewModel {
         val service: SimpleService = retrofit.create(SimpleService::class.java)
 
         mainViewModel = MainViewModel(
-            LiveDataWrapper.Base(),
+            LiveDataWrapper.Default(),
             Repository.Base(service, URL)
         )
     }
