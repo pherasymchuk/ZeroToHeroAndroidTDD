@@ -3,6 +3,8 @@ package ru.easycode.zerotoheroandroidtdd
 import android.app.Application
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.easycode.zerotoheroandroidtdd.data.Repository
+import ru.easycode.zerotoheroandroidtdd.network.SimpleService
 import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
 
 class MainApplication : Application(), ProvideMainViewModel {

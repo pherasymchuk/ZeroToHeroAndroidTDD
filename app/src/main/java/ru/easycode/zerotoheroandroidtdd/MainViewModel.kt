@@ -5,6 +5,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import ru.easycode.zerotoheroandroidtdd.data.Repository
+import ru.easycode.zerotoheroandroidtdd.data.UiState
+import ru.easycode.zerotoheroandroidtdd.network.SimpleResponse
 import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
 import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
 
