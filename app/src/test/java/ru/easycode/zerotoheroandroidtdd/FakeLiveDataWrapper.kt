@@ -2,6 +2,9 @@ package ru.easycode.zerotoheroandroidtdd
 
 import androidx.lifecycle.LiveData
 import org.junit.Assert.assertEquals
+import ru.easycode.zerotoheroandroidtdd.data.UiState
+import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
+import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
 
 interface FakeLiveDataWrapper : LiveDataWrapper.Mutable {
 
@@ -15,8 +18,8 @@ interface FakeLiveDataWrapper : LiveDataWrapper.Mutable {
             assertEquals(expected, actualCallsList)
         }
 
-        override fun save(bundleWrapper: BundleWrapper.Save) {
-            bundleWrapper.save(actualCallsList.last())
+        override fun saveState(bundleWrapper: BundleWrapper.SaveState) {
+            bundleWrapper.saveState(actualCallsList.last())
         }
 
         override fun update(value: UiState) {
@@ -24,7 +27,7 @@ interface FakeLiveDataWrapper : LiveDataWrapper.Mutable {
         }
 
         override fun liveData(): LiveData<UiState> {
-            throw IllegalStateException("not used in test")
+            throw IllegalStateException("Should not be called in FakeLiveDataWrapper")
         }
     }
 }

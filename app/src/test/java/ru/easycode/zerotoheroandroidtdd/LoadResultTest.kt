@@ -1,6 +1,10 @@
 package ru.easycode.zerotoheroandroidtdd
 
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.data.UiState
+import ru.easycode.zerotoheroandroidtdd.network.LoadResult
+import ru.easycode.zerotoheroandroidtdd.network.SimpleResponse
+import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
 
 class LoadResultTest {
 
@@ -8,8 +12,8 @@ class LoadResultTest {
     fun test_success() {
         val result = LoadResult.Success(data = SimpleResponse(text = "some text here"))
         val liveDataWrapper = FakeLiveDataWrapper.Base()
-        val liveDataWrapperUpdate: LiveDataWrapper.Update = liveDataWrapper
-        result.show(updateLiveData = liveDataWrapperUpdate)
+        val liveDataWrapperUpdate: LiveDataWrapper.Mutable = liveDataWrapper
+        result.show(mutableLiveData = liveDataWrapperUpdate)
         liveDataWrapper.checkUpdateCalls(listOf(UiState.ShowData(text = "some text here")))
     }
 
@@ -17,8 +21,8 @@ class LoadResultTest {
     fun test_no_connection() {
         val result = LoadResult.Error(noConnection = true)
         val liveDataWrapper = FakeLiveDataWrapper.Base()
-        val liveDataWrapperUpdate: LiveDataWrapper.Update = liveDataWrapper
-        result.show(updateLiveData = liveDataWrapperUpdate)
+        val liveDataWrapperUpdate: LiveDataWrapper.Mutable = liveDataWrapper
+        result.show(mutableLiveData = liveDataWrapperUpdate)
         liveDataWrapper.checkUpdateCalls(listOf(UiState.ShowData(text = "No internet connection")))
     }
 
@@ -26,8 +30,8 @@ class LoadResultTest {
     fun test_other() {
         val result = LoadResult.Error(noConnection = false)
         val liveDataWrapper = FakeLiveDataWrapper.Base()
-        val liveDataWrapperUpdate: LiveDataWrapper.Update = liveDataWrapper
-        result.show(updateLiveData = liveDataWrapperUpdate)
+        val liveDataWrapperUpdate: LiveDataWrapper.Mutable = liveDataWrapper
+        result.show(mutableLiveData = liveDataWrapperUpdate)
         liveDataWrapper.checkUpdateCalls(listOf(UiState.ShowData(text = "Something went wrong")))
     }
 }

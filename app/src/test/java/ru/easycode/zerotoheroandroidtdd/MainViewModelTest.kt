@@ -9,6 +9,11 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.data.Repository
+import ru.easycode.zerotoheroandroidtdd.data.UiState
+import ru.easycode.zerotoheroandroidtdd.network.LoadResult
+import ru.easycode.zerotoheroandroidtdd.network.SimpleResponse
+import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
 
 /**
  * Please also check out the ui test
@@ -58,14 +63,14 @@ class MainViewModelTest {
         repository.checkLoadCalledTimes(1)
 
         val bundleWrapper: BundleWrapper.Mutable = FakeBundleWrapper.Base()
-        val bundleWrapperSave: BundleWrapper.Save = bundleWrapper
-        val bundleWrapperRestore: BundleWrapper.Restore = bundleWrapper
+        val bundleWrapperSave: BundleWrapper.SaveState = bundleWrapper
+        val bundleWrapperRestore: BundleWrapper.RestoreState = bundleWrapper
 
-        viewModel.save(bundleWrapper = bundleWrapperSave)
+        viewModel.saveState(bundleWrapper = bundleWrapperSave)
 
         initialize()
 
-        viewModel.restore(bundleWrapper = bundleWrapperRestore)
+        viewModel.restoreState(bundleWrapper = bundleWrapperRestore)
         liveDataWrapper.checkUpdateCalls(listOf(UiState.ShowData(text = "testingText")))
         repository.checkLoadCalledTimes(0)
     }
@@ -77,11 +82,11 @@ private interface FakeBundleWrapper : BundleWrapper.Mutable {
 
         private var uiState: UiState? = null
 
-        override fun save(uiState: UiState) {
+        override fun saveState(uiState: UiState) {
             this.uiState = uiState
         }
 
-        override fun restore(): UiState = uiState!!
+        override fun restoreState(): UiState = uiState!!
     }
 }
 

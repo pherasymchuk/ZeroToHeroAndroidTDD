@@ -12,7 +12,7 @@ import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
 import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
 
 class MainViewModel(
-    private val liveDataWrapper: LiveDataWrapper,
+    private val liveDataWrapper: LiveDataWrapper.Mutable,
     private val repository: Repository,
 ) {
     private val viewModelScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
