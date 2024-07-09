@@ -1,4 +1,4 @@
-package ru.easycode.zerotoheroandroidtdd
+package ru.easycode.zerotoheroandroidtdd.ui
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineScope

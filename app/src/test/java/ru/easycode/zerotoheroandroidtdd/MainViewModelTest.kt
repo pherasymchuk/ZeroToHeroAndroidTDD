@@ -14,6 +14,7 @@ import ru.easycode.zerotoheroandroidtdd.fakes.FakeBundleWrapper
 import ru.easycode.zerotoheroandroidtdd.fakes.FakeLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.fakes.FakeRepository
 import ru.easycode.zerotoheroandroidtdd.network.SimpleResponse
+import ru.easycode.zerotoheroandroidtdd.ui.MainViewModel
 import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
 
 /**

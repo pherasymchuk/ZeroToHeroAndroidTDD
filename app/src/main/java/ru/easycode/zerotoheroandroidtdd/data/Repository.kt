@@ -1,7 +1,7 @@
 package ru.easycode.zerotoheroandroidtdd.data
 
-import ru.easycode.zerotoheroandroidtdd.Log
 import ru.easycode.zerotoheroandroidtdd.network.SimpleService
+import ru.easycode.zerotoheroandroidtdd.utils.Log
 import java.io.InterruptedIOException
 import java.net.UnknownHostException
 

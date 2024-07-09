@@ -2,8 +2,8 @@ package ru.easycode.zerotoheroandroidtdd.wrappers
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ru.easycode.zerotoheroandroidtdd.SingleLiveEvent
 import ru.easycode.zerotoheroandroidtdd.data.UiState
+import ru.easycode.zerotoheroandroidtdd.utils.SingleLiveEvent
 
 interface LiveDataWrapper : ProvideLiveData {
 
@@ -24,12 +24,4 @@ interface LiveDataWrapper : ProvideLiveData {
             liveData.value = value
         }
     }
-}
-
-interface ProvideLiveData {
-    fun liveData(): LiveData<UiState>
-}
-
-interface SaveState {
-    fun saveState(bundleWrapper: BundleWrapper.SaveState)
 }

@@ -6,6 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.easycode.zerotoheroandroidtdd.data.Repository
 import ru.easycode.zerotoheroandroidtdd.network.SimpleService
+import ru.easycode.zerotoheroandroidtdd.ui.MainViewModel
+import ru.easycode.zerotoheroandroidtdd.utils.Log
 import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
 import java.util.concurrent.TimeUnit
 
