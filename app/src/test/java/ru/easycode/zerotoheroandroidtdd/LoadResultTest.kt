@@ -1,8 +1,9 @@
 package ru.easycode.zerotoheroandroidtdd
 
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.data.LoadResult
 import ru.easycode.zerotoheroandroidtdd.data.UiState
-import ru.easycode.zerotoheroandroidtdd.network.LoadResult
+import ru.easycode.zerotoheroandroidtdd.fakes.FakeLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.network.SimpleResponse
 import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
 
@@ -12,8 +13,8 @@ class LoadResultTest {
     fun test_success() {
         val result = LoadResult.Success(data = SimpleResponse(text = "some text here"))
         val liveDataWrapper = FakeLiveDataWrapper.Base()
-        val liveDataWrapperUpdate: LiveDataWrapper.Mutable = liveDataWrapper
-        result.show(mutableLiveData = liveDataWrapperUpdate)
+        val mutableLiveDataWrapper: LiveDataWrapper.Mutable = liveDataWrapper
+        result.show(mutableLiveData = mutableLiveDataWrapper)
         liveDataWrapper.checkUpdateCalls(listOf(UiState.ShowData(text = "some text here")))
     }
 

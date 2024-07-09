@@ -5,12 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import ru.easycode.zerotoheroandroidtdd.SingleLiveEvent
 import ru.easycode.zerotoheroandroidtdd.data.UiState
 
-interface LiveDataWrapper {
-    fun liveData(): LiveData<UiState>
-
-    interface Update {
-        fun update(value: UiState)
-    }
+interface LiveDataWrapper : ProvideLiveData {
 
     interface Mutable : LiveDataWrapper, SaveState {
         fun update(value: UiState)
@@ -25,10 +20,14 @@ interface LiveDataWrapper {
             liveData.value?.let { bundleWrapper.saveState(it) }
         }
 
-        override fun update(value: UiState) = synchronized(this) {
+        override fun update(value: UiState) {
             liveData.value = value
         }
     }
+}
+
+interface ProvideLiveData {
+    fun liveData(): LiveData<UiState>
 }
 
 interface SaveState {

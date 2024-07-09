@@ -1,10 +1,12 @@
-package ru.easycode.zerotoheroandroidtdd
+package ru.easycode.zerotoheroandroidtdd.fakes
 
 import androidx.lifecycle.LiveData
 import org.junit.Assert.assertEquals
 import ru.easycode.zerotoheroandroidtdd.data.UiState
 import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
 import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
+import java.lang.IllegalStateException
+import kotlin.collections.last
 
 interface FakeLiveDataWrapper : LiveDataWrapper.Mutable {
 

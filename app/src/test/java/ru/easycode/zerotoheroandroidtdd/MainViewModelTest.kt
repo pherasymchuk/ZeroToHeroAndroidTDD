@@ -6,12 +6,13 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import ru.easycode.zerotoheroandroidtdd.data.Repository
+import ru.easycode.zerotoheroandroidtdd.data.LoadResult
 import ru.easycode.zerotoheroandroidtdd.data.UiState
-import ru.easycode.zerotoheroandroidtdd.network.LoadResult
+import ru.easycode.zerotoheroandroidtdd.fakes.FakeBundleWrapper
+import ru.easycode.zerotoheroandroidtdd.fakes.FakeLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.fakes.FakeRepository
 import ru.easycode.zerotoheroandroidtdd.network.SimpleResponse
 import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
 
@@ -76,43 +77,3 @@ class MainViewModelTest {
     }
 }
 
-private interface FakeBundleWrapper : BundleWrapper.Mutable {
-
-    class Base : FakeBundleWrapper {
-
-        private var uiState: UiState? = null
-
-        override fun saveState(uiState: UiState) {
-            this.uiState = uiState
-        }
-
-        override fun restoreState(): UiState = uiState!!
-    }
-}
-
-private interface FakeRepository : Repository {
-
-    fun expectResult(result: LoadResult)
-
-    fun checkLoadCalledTimes(times: Int)
-
-    class Base : FakeRepository {
-
-        private lateinit var result: LoadResult
-
-        override fun expectResult(result: LoadResult) {
-            this.result = result
-        }
-
-        private var actualCalledTimes: Int = 0
-
-        override fun checkLoadCalledTimes(times: Int) {
-            assertEquals(times, actualCalledTimes)
-        }
-
-        override suspend fun load(): LoadResult {
-            actualCalledTimes++
-            return result
-        }
-    }
-}

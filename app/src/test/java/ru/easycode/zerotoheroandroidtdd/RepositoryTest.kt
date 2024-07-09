@@ -3,8 +3,8 @@ package ru.easycode.zerotoheroandroidtdd
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.data.LoadResult
 import ru.easycode.zerotoheroandroidtdd.data.Repository
-import ru.easycode.zerotoheroandroidtdd.network.LoadResult
 import ru.easycode.zerotoheroandroidtdd.network.SimpleResponse
 import ru.easycode.zerotoheroandroidtdd.network.SimpleService
 import java.net.UnknownHostException
