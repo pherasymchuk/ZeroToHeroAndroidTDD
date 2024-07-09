@@ -1,6 +1,6 @@
 package ru.easycode.zerotoheroandroidtdd.data
 
-import android.util.Log
+import ru.easycode.zerotoheroandroidtdd.Log
 import ru.easycode.zerotoheroandroidtdd.network.SimpleResponse
 import ru.easycode.zerotoheroandroidtdd.network.SimpleService
 import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
@@ -10,7 +10,11 @@ import java.net.UnknownHostException
 interface Repository {
     suspend fun load(): LoadResult
 
-    class Base(private val service: SimpleService, private val url: String) : Repository {
+    class Base(
+        private val service: SimpleService,
+        private val url: String,
+        private val log: Log,
+    ) : Repository {
         val TAG = "tag"
         override suspend fun load(): LoadResult {
             return try {
@@ -20,7 +24,7 @@ interface Repository {
             } catch (_: InterruptedIOException) {
                 LoadResult.Error(noConnection = true)
             } catch (e: Exception) {
-                Log.e(TAG, "load: $e")
+                log.log("Repository load error: ${e.message}")
                 LoadResult.Error(noConnection = false)
             }
         }

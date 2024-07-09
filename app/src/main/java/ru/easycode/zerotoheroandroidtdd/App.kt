@@ -34,7 +34,7 @@ class MainApplication : Application(), ProvideMainViewModel {
 
         mainViewModel = MainViewModel(
             LiveDataWrapper.Default(),
-            Repository.Base(service, URL)
+            Repository.Base(service, URL, log = Log.Debug())
         )
     }
 

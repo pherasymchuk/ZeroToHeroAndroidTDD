@@ -15,7 +15,7 @@ class RepositoryTest {
     fun test_success() = runBlocking {
         val service = FakeService.Base()
         service.expectSuccess()
-        val repository = Repository.Base(service = service, url = "a")
+        val repository = Repository.Base(service = service, url = "a", log = FakeLog.Default())
         val actual = repository.load()
         val expected = LoadResult.Success(data = SimpleResponse(text = "A"))
         assertEquals(expected, actual)
@@ -26,7 +26,7 @@ class RepositoryTest {
         val service = FakeService.Base()
         service.expectException(UnknownHostException())
 
-        val repository = Repository.Base(service = service, url = "a")
+        val repository = Repository.Base(service = service, url = "a", log = FakeLog.Default())
         val actual = repository.load()
         val expected = LoadResult.Error(noConnection = true)
         assertEquals(expected, actual)
@@ -37,7 +37,7 @@ class RepositoryTest {
         val service = FakeService.Base()
         service.expectException(IllegalStateException())
 
-        val repository = Repository.Base(service = service, url = "a")
+        val repository = Repository.Base(service = service, url = "a", log = FakeLog.Default())
         val actual = repository.load()
         val expected = LoadResult.Error(noConnection = false)
         assertEquals(expected, actual)
@@ -76,6 +76,14 @@ private interface FakeService : SimpleService {
                 return map[url]!!
             else
                 throw exceptionToThrow
+        }
+    }
+}
+
+private interface FakeLog : Log {
+    class Default : FakeLog {
+        override fun log(message: String) {
+            println(message)
         }
     }
 }
