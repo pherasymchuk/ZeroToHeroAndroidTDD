@@ -2,14 +2,14 @@ package ru.easycode.zerotoheroandroidtdd.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ru.easycode.zerotoheroandroidtdd.ProvideMainViewModel
 import ru.easycode.zerotoheroandroidtdd.data.UiState
 import ru.easycode.zerotoheroandroidtdd.databinding.ActivityMainBinding
+import ru.easycode.zerotoheroandroidtdd.utils.ProvideMainViewModel
 import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MainViewModel by lazy { (application as ProvideMainViewModel).provide() }
+    private val viewModel: MainViewModel by lazy { (application as ProvideMainViewModel).provideViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

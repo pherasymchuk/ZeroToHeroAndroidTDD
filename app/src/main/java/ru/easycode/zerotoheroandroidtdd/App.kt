@@ -8,13 +8,14 @@ import ru.easycode.zerotoheroandroidtdd.data.Repository
 import ru.easycode.zerotoheroandroidtdd.network.SimpleService
 import ru.easycode.zerotoheroandroidtdd.ui.MainViewModel
 import ru.easycode.zerotoheroandroidtdd.utils.Log
+import ru.easycode.zerotoheroandroidtdd.utils.ProvideMainViewModel
 import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
 import java.util.concurrent.TimeUnit
 
 class MainApplication : Application(), ProvideMainViewModel {
     private lateinit var mainViewModel: MainViewModel
 
-    override fun provide(): MainViewModel {
+    override fun provideViewModel(): MainViewModel {
         return mainViewModel
     }
 
@@ -46,6 +47,3 @@ class MainApplication : Application(), ProvideMainViewModel {
     }
 }
 
-interface ProvideMainViewModel {
-    fun provide(): MainViewModel
-}
