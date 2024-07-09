@@ -15,7 +15,6 @@ interface Repository {
         private val url: String,
         private val log: Log,
     ) : Repository {
-        val TAG = "tag"
         override suspend fun load(): LoadResult {
             return try {
                 LoadResult.Success(data = service.fetch(url))
