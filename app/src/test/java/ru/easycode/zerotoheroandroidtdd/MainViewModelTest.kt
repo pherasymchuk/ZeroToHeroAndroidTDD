@@ -51,14 +51,16 @@ class MainViewModelTest {
     }
 
     @Test
-    fun test() {
-        repository.expectResult(LoadResult.Success(SimpleResponse(text = "testingText")))
+    fun testViewModelStateRestoration() {
+        val expectedText = "testingText"
+        repository.expectResult(LoadResult.Success(SimpleResponse(text = expectedText)))
 
         viewModel.load()
+
         liveDataWrapper.checkUpdateCalls(
             listOf(
                 UiState.ShowProgress,
-                UiState.ShowData(text = "testingText")
+                UiState.ShowData(text = expectedText)
             )
         )
         repository.checkLoadCalledTimes(1)
@@ -72,8 +74,11 @@ class MainViewModelTest {
         initialize()
 
         viewModel.restoreState(bundleWrapper = bundleWrapperRestore)
-        liveDataWrapper.checkUpdateCalls(listOf(UiState.ShowData(text = "testingText")))
+        liveDataWrapper.checkUpdateCalls(listOf(UiState.ShowData(text = expectedText)))
         repository.checkLoadCalledTimes(0)
     }
 }
 
+data class Nma(private val one: String) {
+
+}
