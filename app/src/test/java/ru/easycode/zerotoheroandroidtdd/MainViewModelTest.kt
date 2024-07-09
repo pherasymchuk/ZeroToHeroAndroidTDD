@@ -78,7 +78,3 @@ class MainViewModelTest {
         repository.checkLoadCalledTimes(0)
     }
 }
-
-data class Nma(private val one: String) {
-
-}
