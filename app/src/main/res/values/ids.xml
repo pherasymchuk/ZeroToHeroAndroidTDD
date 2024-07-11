@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="topLayout" type="id" />
+    <item name="inputEditText" type="id" />
+    <item name="actionButton" type="id" />
+    <item name="contentLayout" type="id" />
+    <item name="rootLinearLayout" type="id" />
+</resources>

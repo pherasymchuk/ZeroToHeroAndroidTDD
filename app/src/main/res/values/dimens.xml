@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="editTextMinSize">200dp</dimen>
+    <dimen name="createButtonMinWidth">120dp</dimen>
+    <dimen name="topLinearLayoutPadding">8dp</dimen>
+</resources>
