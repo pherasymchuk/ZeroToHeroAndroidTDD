@@ -13,7 +13,7 @@ abstract class MainRecyclerAdapter : RecyclerView.Adapter<MainViewHolder>(), Sav
     class Default(
     ) : MainRecyclerAdapter() {
 
-        private var dataset: ArrayList<String> = arrayListOf("one", "two", "three")
+        private var dataset: ArrayList<String> = ArrayList()
 
         override fun onCreateViewHolder(
             parent: ViewGroup,
