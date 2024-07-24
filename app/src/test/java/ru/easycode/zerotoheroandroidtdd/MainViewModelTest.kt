@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.ui.main.MainViewModel
+import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
+import ru.easycode.zerotoheroandroidtdd.wrappers.ListLiveDataWrapper
 
 class MainViewModelTest {
 
@@ -13,7 +16,7 @@ class MainViewModelTest {
     @Before
     fun init() {
         listLiveDataWrapper = FakeListLiveDataWrapper.Base()
-        viewModel = MainViewModel(listLiveDataWrapper = listLiveDataWrapper)
+        viewModel = MainViewModel.Default(listLiveDataWrapper = listLiveDataWrapper)
     }
 
     @Test
@@ -28,40 +31,40 @@ class MainViewModelTest {
         val bundleWrapperSave: BundleWrapper.Save = bundleWrapper
         val bundleWrapperRestore: BundleWrapper.Restore = bundleWrapper
 
-        viewModel.save(bundle = bundleWrapperSave)
+        viewModel.saveState(bundle = bundleWrapperSave)
 
         init()
 
-        viewModel.restore(bundle = bundleWrapperRestore)
+        viewModel.restoreState(bundle = bundleWrapperRestore)
         listLiveDataWrapper.checkListSame(listOf("first", "second"))
     }
 }
 
-private interface FakeListLiveDataWrapper : ListLiveDataWrapper {
+private interface FakeListLiveDataWrapper : ListLiveDataWrapper.Mutable {
 
-    fun checkListSame(expected: List<CharSequence>)
+    fun checkListSame(expected: List<String>)
 
     class Base : FakeListLiveDataWrapper {
 
-        private val list = ArrayList<CharSequence>()
+        private val list = ArrayList<String>()
 
-        override fun checkListSame(expected: List<CharSequence>) {
+        override fun checkListSame(expected: List<String>) {
             assertEquals(expected, list)
         }
 
-        override fun liveData(): LiveData<List<CharSequence>> {
+        override fun liveData(): LiveData<ArrayList<String>> {
             throw IllegalStateException("not used here")
         }
 
-        override fun add(new: CharSequence) {
+        override fun add(new: String) {
             list.add(new)
         }
 
-        override fun save(bundle: BundleWrapper.Save) {
+        override fun saveState(bundle: BundleWrapper.Save) {
             bundle.save(list)
         }
 
-        override fun update(list: List<CharSequence>) {
+        override fun update(list: ArrayList<String>) {
             this.list.addAll(list)
         }
     }
@@ -69,13 +72,13 @@ private interface FakeListLiveDataWrapper : ListLiveDataWrapper {
 
 class FakeBundleWrapper : BundleWrapper.Mutable {
 
-    private val cache = ArrayList<CharSequence>()
+    private val cache = ArrayList<String>()
 
-    override fun save(list: ArrayList<CharSequence>) {
+    override fun save(list: ArrayList<String>) {
         cache.addAll(list)
     }
 
-    override fun restore(): List<CharSequence> {
+    override fun restore(): ArrayList<String> {
         return cache
     }
 }
