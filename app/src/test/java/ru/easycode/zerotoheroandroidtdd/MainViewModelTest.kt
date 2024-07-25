@@ -13,7 +13,7 @@ class MainViewModelTest {
     @Before
     fun init() {
         listLiveDataWrapper = FakeListLiveDataWrapper.Base()
-        viewModel = MainViewModel(listLiveDataWrapper = listLiveDataWrapper)
+        viewModel = MainViewModel.Default(listLiveDataWrapper = listLiveDataWrapper)
     }
 
     @Test
