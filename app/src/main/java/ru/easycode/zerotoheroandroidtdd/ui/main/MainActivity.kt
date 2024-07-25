@@ -2,7 +2,14 @@ package ru.easycode.zerotoheroandroidtdd.ui.main
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import ru.easycode.zerotoheroandroidtdd.app.App
 import ru.easycode.zerotoheroandroidtdd.databinding.ActivityMainBinding
 import ru.easycode.zerotoheroandroidtdd.wrappers.BundleWrapper
@@ -16,8 +23,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _: View, insetsCompat: WindowInsetsCompat ->
+            val insets =
+                insetsCompat.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            binding.topLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                leftMargin = insets.left
+                rightMargin = insets.right
+                topMargin = insets.top
+            }
+//            binding.root.updatePadding(left = insets.left, right = insets.right)
+            binding.recyclerView.updatePadding(bottom = insets.bottom, left = insets.left, right = insets.right)
+            WindowInsetsCompat.CONSUMED
+        }
+
 
         recyclerAdapter = RecyclerViewAdapter.Default()
         binding.recyclerView.adapter = recyclerAdapter
