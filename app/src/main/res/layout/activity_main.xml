@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootLayout"
     android:orientation="vertical"
+    android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
+    android:paddingHorizontal="8dp"
+    android:paddingTop="8dp"
     tools:context=".ui.main.MainActivity">
 
     <LinearLayout
@@ -35,6 +37,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipToPadding="false"
         android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
