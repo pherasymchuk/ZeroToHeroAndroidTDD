@@ -1,6 +1,7 @@
 package ru.easycode.zerotoheroandroidtdd
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import ru.easycode.zerotoheroandroidtdd.databinding.ActivityMainBinding
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = (application as App).viewModel
         liveData = viewModel.liveData()
         adapter = MainAdapter.Default()
+
         binding.recyclerView.adapter = adapter
 
         binding.actionButton.setOnClickListener {
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         liveData.observe(this) {
+            Log.d(TAG, "livedata.observe: new value $it")
             adapter.updateList(it.map { it.toString() })
         }
     }
