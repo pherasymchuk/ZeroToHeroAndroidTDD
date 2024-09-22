@@ -1,40 +1,16 @@
 package ru.easycode.zerotoheroandroidtdd
 
 import android.app.Application
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import ru.easycode.zerotoheroandroidtdd.data.Repository
-import ru.easycode.zerotoheroandroidtdd.network.SimpleService
-import ru.easycode.zerotoheroandroidtdd.wrappers.LiveDataWrapper
+import androidx.lifecycle.ViewModel
+import ru.easycode.zerotoheroandroidtdd.core.ViewModelFactory
+import ru.easycode.zerotoheroandroidtdd.core.ViewModelSource
 
-class MainApplication : Application(), ProvideMainViewModel {
-    private lateinit var mainViewModel: MainViewModel
+class App : Application(), ViewModelSource {
+    private val viewModelFactory: ViewModelFactory = ViewModelFactory.Default(
+        ViewModelSource.Default()
+    )
 
-    override fun provide(): MainViewModel {
-        return mainViewModel
+    override fun <T : ViewModel> viewModel(viewModelClass: Class<T>): T {
+        return viewModelFactory.viewModel(viewModelClass)
     }
-
-    override fun onCreate() {
-        super.onCreate()
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://www.google.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service: SimpleService = retrofit.create(SimpleService::class.java)
-
-        mainViewModel = MainViewModel(
-            LiveDataWrapper.Base(),
-            Repository.Base(service, URL)
-        )
-    }
-
-    companion object {
-        private const val URL =
-            "https://raw.githubusercontent.com/JohnnySC/ZeroToHeroAndroidTDD/task/018-clouddatasource/app/sampleresponse.json"
-    }
-}
-
-interface ProvideMainViewModel {
-    fun provide(): MainViewModel
 }
