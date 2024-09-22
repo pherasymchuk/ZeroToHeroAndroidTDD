@@ -10,7 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.hamcrest.Matchers.allOf
 
-class ListPage : AbstractPage(R.id.listFrameLayout) {
+class ListPageTest : AbstractPage(R.id.listFrameLayout) {
 
     fun checkTexts(list: List<String>) {
         list.forEachIndexed { index, text ->
@@ -26,7 +26,7 @@ class ListPage : AbstractPage(R.id.listFrameLayout) {
     fun clickAddButton() {
         onView(
             allOf(
-                withParent(withId(root)),
+                withParent(withId(rootId)),
                 isAssignableFrom(FloatingActionButton::class.java),
                 withId(R.id.addButton)
             )

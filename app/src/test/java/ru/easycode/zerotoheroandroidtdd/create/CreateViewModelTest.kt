@@ -20,23 +20,23 @@ class CreateViewModelTest {
 
     @Before
     fun setup() {
-        addLiveDataWrapper = FakeListLiveDataWrapper.Base()
+        addLiveDataWrapper = FakeListLiveDataWrapper.Default()
         val add: ListLiveDataWrapper.Add = addLiveDataWrapper
 
-        navigation = FakeNavigation.Base()
-        val navigationUpdate: Navigation.Update = navigation
+        navigation = FakeNavigation.Default()
+        val navigationUpdateScreen: Navigation.UpdateScreen = navigation
 
         clearViewModel = FakeClearViewModel.Base()
-        viewModel = CreateViewModel(
+        viewModel = CreateViewModel.Default(
             addLiveDataWrapper = add,
-            navigation = navigationUpdate,
+            navigation = navigationUpdateScreen,
             clearViewModel = clearViewModel
         )
     }
 
     @Test
     fun test_add() {
-        viewModel.add(text = "exampleText")
+        viewModel.addItem(text = "exampleText")
         addLiveDataWrapper.checkCalledList(listOf("exampleText"))
         navigation.checkUpdateCalled(listOf(Screen.Pop))
         clearViewModel.checkClearCalled(CreateViewModel::class.java)
@@ -44,7 +44,7 @@ class CreateViewModelTest {
 
     @Test
     fun test_comeback() {
-        viewModel.comeback()
+        viewModel.goBack()
         navigation.checkUpdateCalled(listOf(Screen.Pop))
         clearViewModel.checkClearCalled(CreateViewModel::class.java)
     }

@@ -2,6 +2,7 @@ package ru.easycode.zerotoheroandroidtdd.list
 
 import org.junit.Before
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.core.BundleWrapper
 import ru.easycode.zerotoheroandroidtdd.create.CreateScreen
 import ru.easycode.zerotoheroandroidtdd.main.FakeNavigation
 import ru.easycode.zerotoheroandroidtdd.main.Navigation
@@ -14,15 +15,15 @@ class ListViewModelTest {
 
     @Before
     fun setup() {
-        liveDataWrapper = FakeListLiveDataWrapper.Base()
+        liveDataWrapper = FakeListLiveDataWrapper.Default()
         val mutableLiveDataWrapper: ListLiveDataWrapper.Mutable = liveDataWrapper
 
-        navigation = FakeNavigation.Base()
-        val navigationUpdate: Navigation.Update = navigation
+        navigation = FakeNavigation.Default()
+        val navigationUpdate: Navigation.UpdateScreen = navigation
 
-        viewModel = ListViewModel(
-            liveDataWrapper = mutableLiveDataWrapper,
-            navigation = navigationUpdate
+        viewModel = ListViewModel.Default(
+            liveDataList = mutableLiveDataWrapper,
+            screenNavigation = navigationUpdate
         )
     }
 
@@ -35,22 +36,22 @@ class ListViewModelTest {
     @Test
     fun test_save_and_restore() {
         liveDataWrapper.update(listOf("1", "2", "3"))
-        val bundleWrapper = FakeBundleWrapper.Base()
+        val bundleWrapper = FakeBundleWrapper.Default()
         val save: BundleWrapper.Save = bundleWrapper
         val restore: BundleWrapper.Restore = bundleWrapper
 
-        viewModel.save(bundleWrapper = save)
+        viewModel.saveState(bundleWrapper = save)
 
         setup()
 
-        viewModel.restore(bundleWrapper = restore)
+        viewModel.restoreState(bundleWrapper = restore)
         liveDataWrapper.checkCalledList(listOf("1", "2", "3"))
     }
 }
 
 private interface FakeBundleWrapper : BundleWrapper.Mutable {
 
-    class Base : FakeBundleWrapper {
+    class Default : FakeBundleWrapper {
         private val cached = ArrayList<CharSequence>()
 
         override fun save(list: ArrayList<CharSequence>) {

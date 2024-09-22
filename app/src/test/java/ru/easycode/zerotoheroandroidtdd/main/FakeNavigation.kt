@@ -7,7 +7,7 @@ interface FakeNavigation : Navigation.Mutable {
 
     fun checkUpdateCalled(expected: List<Screen>)
 
-    class Base : FakeNavigation {
+    class Default : FakeNavigation {
 
         private val callsList = mutableListOf<Screen>()
 
@@ -15,8 +15,8 @@ interface FakeNavigation : Navigation.Mutable {
             assertEquals(expected, callsList)
         }
 
-        override fun update(value: Screen) {
-            callsList.add(value)
+        override fun update(newScreen: Screen) {
+            callsList.add(newScreen)
         }
 
         override fun liveData(): LiveData<Screen> {

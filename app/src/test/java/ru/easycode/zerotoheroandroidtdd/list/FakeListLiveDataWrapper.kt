@@ -2,12 +2,13 @@ package ru.easycode.zerotoheroandroidtdd.list
 
 import androidx.lifecycle.LiveData
 import org.junit.Assert.assertEquals
+import ru.easycode.zerotoheroandroidtdd.core.BundleWrapper
 
 interface FakeListLiveDataWrapper : ListLiveDataWrapper.All {
 
     fun checkCalledList(expected: List<CharSequence>)
 
-    class Base : FakeListLiveDataWrapper {
+    class Default : FakeListLiveDataWrapper {
 
         private val calledList = ArrayList<CharSequence>()
 
@@ -19,7 +20,7 @@ interface FakeListLiveDataWrapper : ListLiveDataWrapper.All {
             calledList.add(source)
         }
 
-        override fun save(bundleWrapper: BundleWrapper.Save) {
+        override fun saveState(bundleWrapper: BundleWrapper.Save) {
             bundleWrapper.save(calledList)
         }
 

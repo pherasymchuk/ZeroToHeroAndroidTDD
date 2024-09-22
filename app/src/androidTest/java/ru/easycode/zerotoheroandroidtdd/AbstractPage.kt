@@ -9,22 +9,22 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import org.hamcrest.Matchers.allOf
 
-abstract class AbstractPage(protected val root: Int) {
+abstract class AbstractPage(protected val rootId: Int) {
 
-    fun checkVisibleNow() {
+    fun checkIsVisible() {
         onView(
             allOf(
                 isAssignableFrom(FrameLayout::class.java),
-                withId(root)
+                withId(rootId)
             )
         ).check(matches(isDisplayed()))
     }
 
-    fun checkNotVisibleNow() {
+    fun checkIsNotVisible() {
         onView(
             allOf(
                 isAssignableFrom(FrameLayout::class.java),
-                withId(root)
+                withId(rootId)
             )
         ).check(doesNotExist())
     }

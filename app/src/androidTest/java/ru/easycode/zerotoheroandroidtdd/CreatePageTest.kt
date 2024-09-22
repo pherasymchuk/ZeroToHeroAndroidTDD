@@ -15,12 +15,12 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.google.android.material.textfield.TextInputEditText
 import org.hamcrest.Matchers.allOf
 
-class CreatePage : AbstractPage(R.id.createFrameLayout) {
+class CreatePageTest : AbstractPage(R.id.createFrameLayout) {
 
     private val createButton = onView(
         allOf(
             isAssignableFrom(Button::class.java),
-            withParent(withId(root)),
+            withParent(withId(rootId)),
             withId(R.id.createButton),
             withText("create")
         )
@@ -30,7 +30,7 @@ class CreatePage : AbstractPage(R.id.createFrameLayout) {
         onView(
             allOf(
                 isAssignableFrom(TextInputEditText::class.java),
-                withParent(withId(root)),
+                withParent(withId(rootId)),
                 withId(R.id.inputEditText)
             )
         ).perform(typeText(text), closeSoftKeyboard())

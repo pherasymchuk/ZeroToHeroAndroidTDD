@@ -3,7 +3,6 @@ package ru.easycode.zerotoheroandroidtdd
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -48,107 +47,107 @@ class Task025Test {
 
     @Test
     fun test_navigate_to_create_screen() {
-        val listPage = ListPage()
-        listPage.checkVisibleNow()
+        val listPage = ListPageTest()
+        listPage.checkIsVisible()
         listPage.clickAddButton()
 
-        val createPage = CreatePage()
-        createPage.checkVisibleNow()
+        val createPage = CreatePageTest()
+        createPage.checkIsVisible()
     }
 
     @Test
     fun test_navigate_to_create_screen_and_comeback() {
-        val listPage = ListPage()
-        listPage.checkVisibleNow()
+        val listPage = ListPageTest()
+        listPage.checkIsVisible()
         listPage.clickAddButton()
 
-        val createPage = CreatePage()
-        createPage.checkVisibleNow()
+        val createPage = CreatePageTest()
+        createPage.checkIsVisible()
         createPage.checkButtonNotEnabled()
 
         pressBack()
-        createPage.checkNotVisibleNow()
-        listPage.checkVisibleNow()
+        createPage.checkIsNotVisible()
+        listPage.checkIsVisible()
     }
 
     @Test
     fun test_input_not_enough_text_and_comeback() {
-        val listPage = ListPage()
-        listPage.checkVisibleNow()
+        val listPage = ListPageTest()
+        listPage.checkIsVisible()
         listPage.clickAddButton()
 
-        val createPage = CreatePage()
-        createPage.checkVisibleNow()
+        val createPage = CreatePageTest()
+        createPage.checkIsVisible()
         createPage.checkButtonNotEnabled()
         createPage.inputText("12")
         createPage.checkButtonNotEnabled()
 
         pressBack()
-        createPage.checkNotVisibleNow()
-        listPage.checkVisibleNow()
+        createPage.checkIsNotVisible()
+        listPage.checkIsVisible()
     }
 
     @Test
     fun test_input_enough_text_and_comeback() {
-        val listPage = ListPage()
-        listPage.checkVisibleNow()
+        val listPage = ListPageTest()
+        listPage.checkIsVisible()
         listPage.clickAddButton()
 
-        val createPage = CreatePage()
-        createPage.checkVisibleNow()
+        val createPage = CreatePageTest()
+        createPage.checkIsVisible()
         createPage.checkButtonNotEnabled()
         createPage.inputText("123")
         createPage.checkButtonEnabled()
 
         pressBack()
-        createPage.checkNotVisibleNow()
-        listPage.checkVisibleNow()
+        createPage.checkIsNotVisible()
+        listPage.checkIsVisible()
     }
 
     @Test
     fun test_create_one_item() {
-        val listPage = ListPage()
-        listPage.checkVisibleNow()
+        val listPage = ListPageTest()
+        listPage.checkIsVisible()
         listPage.clickAddButton()
 
-        val createPage = CreatePage()
-        createPage.checkVisibleNow()
+        val createPage = CreatePageTest()
+        createPage.checkIsVisible()
         createPage.checkButtonNotEnabled()
         createPage.inputText("one")
         createPage.clickCreateButton()
 
-        createPage.checkNotVisibleNow()
-        listPage.checkVisibleNow()
+        createPage.checkIsNotVisible()
+        listPage.checkIsVisible()
         listPage.checkTextAtPosition(0, "one")
     }
 
     @Test
     fun test_create_many_items() {
-        val listPage = ListPage()
-        val createPage = CreatePage()
+        val listPage = ListPageTest()
+        val createPageTest = CreatePageTest()
 
         for (i in 0..10) {
             val text = "testing text number $i"
-            listPage.checkVisibleNow()
+            listPage.checkIsVisible()
             listPage.clickAddButton()
-            createPage.checkVisibleNow()
-            createPage.checkButtonNotEnabled()
-            createPage.inputText(text)
-            createPage.clickCreateButton()
-            createPage.checkNotVisibleNow()
-            listPage.checkVisibleNow()
+            createPageTest.checkIsVisible()
+            createPageTest.checkButtonNotEnabled()
+            createPageTest.inputText(text)
+            createPageTest.clickCreateButton()
+            createPageTest.checkIsNotVisible()
+            listPage.checkIsVisible()
             listPage.checkTextAtPosition(i, text)
         }
     }
 
     @Test
     fun test_save_and_restore() {
-        val listPage = ListPage()
+        val listPageTest = ListPageTest()
         test_create_many_items()
         val texts = (0..10).map { "testing text number $it" }
-        listPage.checkTexts(texts)
+        listPageTest.checkTexts(texts)
 
         activityScenarioRule.scenario.recreate()
-        listPage.checkTexts(texts)
+        listPageTest.checkTexts(texts)
     }
 }
